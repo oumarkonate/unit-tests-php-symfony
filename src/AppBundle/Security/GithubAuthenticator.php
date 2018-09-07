@@ -33,16 +33,13 @@ class GithubAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     public function createToken(Request $request, $providerKey)
     {
         $code = $request->query->get('code');
-        var_dump($code);exit;
 
         $redirectUri = $this->router->generate('github_redirect_url', [], ROUTER::ABSOLUTE_URL);
         $url = 'https://github.com/login/oauth/access_token?client_id='.$this->clientId.'&client_secret='.$this->clientSecret.'&code='.$code.'&redirect_uri='.urlencode($redirectUri);
 
-
         $response = $this->client->post($url, array(''));
 
         $res = $response->getBody()->getContents();
-        var_dump($res);exit;
         $info = explode('&', $res);
         $res = explode('=', $info[0]);
         if (isset($res[0]) && 'error' == $res[0]) {
