@@ -3,10 +3,11 @@ use AppBundle\Entity\User;
 use GuzzleHttp\Client;
 use JMS\Serializer\Serializer;
 use AppBundle\Security\GithubUserProvider;
+use PHPUnit\Framework\TestCase;
 
-class GithubUserProviderTest extends \PHPUnit\Framework\TestCase {
+class GithubUserProviderTest extends TestCase {
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->response = $this->getMockBuilder(\Psr\Http\Message\ResponseInterface::class)
                                 ->disableOriginalConstructor()
@@ -27,7 +28,7 @@ class GithubUserProviderTest extends \PHPUnit\Framework\TestCase {
                                     ->getMock();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->response       = null;
         $this->streamResponse = null;

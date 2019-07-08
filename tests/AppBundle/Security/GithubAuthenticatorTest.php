@@ -1,6 +1,5 @@
 <?php
 
-use \PHPUnit\Framework\TestCase;
 use AppBundle\Security\GithubAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -14,40 +13,41 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Response;
+use PHPUnit\Framework\TestCase;
 
 class GithubAuthenticatorTest extends TestCase {
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = $this->getMockBuilder(Client::class)
-                                ->disableOriginalConstructor()
-                                ->setMethods(['post'])
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(['post'])
+            ->getMock();
 
         $this->router = $this->getMockBuilder(Router::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->response = $this->getMockBuilder(ResponseInterface::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->stream = $this->getMockBuilder(StreamInterface::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->request = $this->getMockBuilder(Request::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->parameterBag = $this->getMockBuilder(ParameterBag::class)
-                                    ->disableOriginalConstructor()
-                                    ->setMethods(['get'])
-                                    ->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(['get'])
+            ->getMock();
 
         $this->token = $this->getMockBuilder(TokenInterface::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->providerKey = 'provider_key';
         $clientId = 'client_id';
@@ -56,7 +56,7 @@ class GithubAuthenticatorTest extends TestCase {
         $this->githubAuthenticator = new GithubAuthenticator($this->client, $clientId, $clientSecret, $this->router);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->client = null;
         $this->router = null;
